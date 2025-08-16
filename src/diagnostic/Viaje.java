@@ -52,11 +52,11 @@ public class Viaje {
         this.categoria = categoria;
     }
 
-    public boolean isRegular() {
+    public boolean isDiscounted() {
         return discount;
     }
 
-    public void setRegular(boolean isRegular) {
+    public void setDiscount(boolean isRegular) {
         this.discount = isRegular;
     }
 }

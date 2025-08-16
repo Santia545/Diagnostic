@@ -37,7 +37,20 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
         alumnosStack = ventana2.alumnosStack;
         btnAgregar.setCursor(getCursor());
     }
-
+    public frmRegistroAlumno(frmMenu ventana2, Viaje viaje) {
+        this.ventana2 = ventana2;
+        initComponents();
+        jtfFolio.setEnabled(false);
+        jtfFolio.setText(viaje.getFolio()+"");
+        jList1.setEnabled(false);
+        jList1.setSelectedIndex(viaje.getDestino().ordinal());
+        jComboBox1.setEnabled(false);
+        jComboBox1.setSelectedIndex(viaje.getCategoria().ordinal());
+        jcbDiscount.setEnabled(false);
+        jcbDiscount.setSelected(viaje.isDiscounted());
+        btnAgregar.setVisible(false);
+        btnEliminar.setVisible(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -260,7 +273,9 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        String user = JOptionPane.showInputDialog(this, "test");
+        String user = JOptionPane.showInputDialog(this, "Ingresa el Folio del viaje a eliminar");
+        if(user==null)
+            return;
         for (int i = 0; i < ventana2.alumnosStack.length; i++) {
             if (ventana2.alumnosStack[i] != null && ("" + ventana2.alumnosStack[i].getFolio()).equals(user)) {
                 for (int j = i; j < ventana2.alumnosStack.length - 1; j++) {
