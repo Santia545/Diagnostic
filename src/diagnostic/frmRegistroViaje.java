@@ -50,6 +50,7 @@ public class frmRegistroViaje extends javax.swing.JFrame {
         jComboBox1.setEnabled(false);
         jComboBox1.setSelectedIndex(viaje.getCategoria().ordinal());
         jtfCliente.setEnabled(false);
+        //TODO: THIS NOT WORKING, IT CRASHED WHEN CLICKING THE BUTTONS TOO
         jtfCliente.setText(viaje.getCliente());
         jcbDiscount.setEnabled(false);
         jcbDiscount.setSelected(viaje.isDiscounted());
