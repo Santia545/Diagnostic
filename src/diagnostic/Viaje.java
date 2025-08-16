@@ -17,12 +17,14 @@ public class Viaje {
     private Destinos destino;
     private Categoria categoria;
     private boolean discount;
+    private String cliente;
 
-    public Viaje(int edad, Destinos carrera, Categoria anio, boolean isRegular) {
+    public Viaje(int edad, Destinos carrera, Categoria anio, boolean isRegular, String cliente) {
         this.folio = edad;
         this.destino = carrera;
         this.categoria = anio;
         this.discount = isRegular;
+        this.cliente = cliente;
     }
 
     public Viaje() {
@@ -59,4 +61,13 @@ public class Viaje {
     public void setDiscount(boolean isRegular) {
         this.discount = isRegular;
     }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
 }

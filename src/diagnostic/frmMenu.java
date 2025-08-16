@@ -158,6 +158,7 @@ public class frmMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No hay ningun viaje registrado");
             return;
         }
+        new frmRegistroAlumno(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**

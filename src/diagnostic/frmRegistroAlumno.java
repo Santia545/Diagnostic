@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import diagnostic.Enums.Categoria;
 import diagnostic.Enums.Destinos;
+import java.awt.event.MouseListener;
 
 /**
  *
@@ -24,6 +25,7 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
 
     protected frmMenu ventana2;
     Viaje[] alumnosStack;
+    int index = 0;
 
     /**
      * Creates new form frmVentana
@@ -51,6 +53,60 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
         jcbDiscount.setSelected(viaje.isDiscounted());
         btnAgregar.setVisible(false);
         btnEliminar.setVisible(false);
+    }
+
+    public frmRegistroAlumno(frmMenu ventana2, Boolean viewTravels) {
+        this.ventana2 = ventana2;
+        initComponents();
+        jtfFolio.setEnabled(false);
+        jList1.setEnabled(false);
+        jComboBox1.setEnabled(false);
+        jcbDiscount.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnAgregar.setText("siguiente");
+        btnEliminar.setText("anterior");
+        if (ventana2.count < 2) {
+            btnAgregar.setEnabled(false);
+        }
+        jtfFolio.setText(ventana2.alumnosStack[0].getFolio() + "");
+        jList1.setSelectedIndex(ventana2.alumnosStack[0].getDestino().ordinal());
+        jComboBox1.setSelectedIndex(ventana2.alumnosStack[0].getCategoria().ordinal());
+        jcbDiscount.setSelected(ventana2.alumnosStack[0].isDiscounted());
+        for (MouseListener listener : btnAgregar.getMouseListeners()) {
+            btnAgregar.removeMouseListener(listener);
+        }
+        for (MouseListener listener : btnEliminar.getMouseListeners()) {
+            btnEliminar.removeMouseListener(listener);
+        }
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminar.setEnabled(true);
+                index++;
+                jtfFolio.setText(ventana2.alumnosStack[index].getFolio() + "");
+                jList1.setSelectedIndex(ventana2.alumnosStack[index].getDestino().ordinal());
+                jComboBox1.setSelectedIndex(ventana2.alumnosStack[index].getCategoria().ordinal());
+                jcbDiscount.setSelected(ventana2.alumnosStack[index].isDiscounted());
+                if(ventana2.alumnosStack[index+1] == null){
+                    btnAgregar.setEnabled(false);
+                }
+            }            
+        });
+        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregar.setEnabled(true);
+                index--;
+                jtfFolio.setText(ventana2.alumnosStack[index].getFolio() + "");
+                jList1.setSelectedIndex(ventana2.alumnosStack[index].getDestino().ordinal());
+                jComboBox1.setSelectedIndex(ventana2.alumnosStack[index].getCategoria().ordinal());
+                jcbDiscount.setSelected(ventana2.alumnosStack[index].isDiscounted());
+                if(index < 1){
+                    btnEliminar.setEnabled(false);
+                }
+            }            
+        });
+
     }
 
     /**
