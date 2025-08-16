@@ -21,7 +21,7 @@ public class frmMenu extends javax.swing.JFrame {
     /**
      * Creates new form frmMenu
      */
-    Viaje[] alumnosStack = new Viaje[100];
+    Viaje[] viajesArray = new Viaje[100];
     int count = 0;
 
     public frmMenu() {
@@ -65,7 +65,7 @@ public class frmMenu extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("Alumno");
+        jMenu1.setText("Viajes");
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem1.setIcon(new javax.swing.ImageIcon("src/diagnostic/assets/show.png"));
@@ -135,9 +135,9 @@ public class frmMenu extends javax.swing.JFrame {
         if (user == null) {
             return;
         }
-        for (int i = 0; i < alumnosStack.length; i++) {
-            if (alumnosStack[i] != null && ("" + alumnosStack[i].getFolio()).equals(user)) {
-                new frmRegistroAlumno(this, alumnosStack[i]).setVisible(true);
+        for (int i = 0; i < viajesArray.length; i++) {
+            if (viajesArray[i] != null && ("" + viajesArray[i].getFolio()).equals(user)) {
+                new frmRegistroViaje(this, viajesArray[i]).setVisible(true);
                 return;
             }
         }
@@ -149,7 +149,7 @@ public class frmMenu extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new frmRegistroAlumno(this).setVisible(true);
+        new frmRegistroViaje(this).setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -158,7 +158,7 @@ public class frmMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No hay ningun viaje registrado");
             return;
         }
-        new frmRegistroAlumno(this, true).setVisible(true);
+        new frmRegistroViaje(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**

@@ -21,10 +21,10 @@ import java.awt.event.MouseListener;
  *
  * @author Usuario
  */
-public class frmRegistroAlumno extends javax.swing.JFrame {
+public class frmRegistroViaje extends javax.swing.JFrame {
 
     protected frmMenu ventana2;
-    Viaje[] alumnosStack;
+    Viaje[] viajesArray;
     int index = 0;
 
     /**
@@ -32,15 +32,15 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
      *
      * @param ventana2
      */
-    public frmRegistroAlumno(frmMenu ventana2) {
+    public frmRegistroViaje(frmMenu ventana2) {
         this.ventana2 = ventana2;
         initComponents();
         jComboBox1.setSelectedIndex(-1);
-        alumnosStack = ventana2.alumnosStack;
+        viajesArray = ventana2.viajesArray;
         btnAgregar.setCursor(getCursor());
     }
 
-    public frmRegistroAlumno(frmMenu ventana2, Viaje viaje) {
+    public frmRegistroViaje(frmMenu ventana2, Viaje viaje) {
         this.ventana2 = ventana2;
         initComponents();
         jtfFolio.setEnabled(false);
@@ -49,29 +49,32 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
         jList1.setSelectedIndex(viaje.getDestino().ordinal());
         jComboBox1.setEnabled(false);
         jComboBox1.setSelectedIndex(viaje.getCategoria().ordinal());
+        jtfCliente.setEnabled(false);
+        jtfCliente.setText(viaje.getCliente());
         jcbDiscount.setEnabled(false);
         jcbDiscount.setSelected(viaje.isDiscounted());
         btnAgregar.setVisible(false);
         btnEliminar.setVisible(false);
     }
 
-    public frmRegistroAlumno(frmMenu ventana2, Boolean viewTravels) {
+    public frmRegistroViaje(frmMenu ventana2, Boolean viewTravels) {
         this.ventana2 = ventana2;
         initComponents();
         jtfFolio.setEnabled(false);
         jList1.setEnabled(false);
         jComboBox1.setEnabled(false);
         jcbDiscount.setEnabled(false);
+        jtfCliente.setEnabled(false);
         btnEliminar.setEnabled(false);
         btnAgregar.setText("siguiente");
         btnEliminar.setText("anterior");
         if (ventana2.count < 2) {
             btnAgregar.setEnabled(false);
         }
-        jtfFolio.setText(ventana2.alumnosStack[0].getFolio() + "");
-        jList1.setSelectedIndex(ventana2.alumnosStack[0].getDestino().ordinal());
-        jComboBox1.setSelectedIndex(ventana2.alumnosStack[0].getCategoria().ordinal());
-        jcbDiscount.setSelected(ventana2.alumnosStack[0].isDiscounted());
+        jtfFolio.setText(ventana2.viajesArray[0].getFolio() + "");
+        jList1.setSelectedIndex(ventana2.viajesArray[0].getDestino().ordinal());
+        jComboBox1.setSelectedIndex(ventana2.viajesArray[0].getCategoria().ordinal());
+        jcbDiscount.setSelected(ventana2.viajesArray[0].isDiscounted());
         for (MouseListener listener : btnAgregar.getMouseListeners()) {
             btnAgregar.removeMouseListener(listener);
         }
@@ -83,28 +86,30 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnEliminar.setEnabled(true);
                 index++;
-                jtfFolio.setText(ventana2.alumnosStack[index].getFolio() + "");
-                jList1.setSelectedIndex(ventana2.alumnosStack[index].getDestino().ordinal());
-                jComboBox1.setSelectedIndex(ventana2.alumnosStack[index].getCategoria().ordinal());
-                jcbDiscount.setSelected(ventana2.alumnosStack[index].isDiscounted());
-                if(ventana2.alumnosStack[index+1] == null){
+                jtfFolio.setText(ventana2.viajesArray[index].getFolio() + "");
+                jList1.setSelectedIndex(ventana2.viajesArray[index].getDestino().ordinal());
+                jComboBox1.setSelectedIndex(ventana2.viajesArray[index].getCategoria().ordinal());
+                jcbDiscount.setSelected(ventana2.viajesArray[index].isDiscounted());
+                jtfCliente.setText(ventana2.viajesArray[index].getCliente());
+                if (ventana2.viajesArray[index + 1] == null) {
                     btnAgregar.setEnabled(false);
                 }
-            }            
+            }
         });
         btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAgregar.setEnabled(true);
                 index--;
-                jtfFolio.setText(ventana2.alumnosStack[index].getFolio() + "");
-                jList1.setSelectedIndex(ventana2.alumnosStack[index].getDestino().ordinal());
-                jComboBox1.setSelectedIndex(ventana2.alumnosStack[index].getCategoria().ordinal());
-                jcbDiscount.setSelected(ventana2.alumnosStack[index].isDiscounted());
-                if(index < 1){
+                jtfFolio.setText(ventana2.viajesArray[index].getFolio() + "");
+                jList1.setSelectedIndex(ventana2.viajesArray[index].getDestino().ordinal());
+                jComboBox1.setSelectedIndex(ventana2.viajesArray[index].getCategoria().ordinal());
+                jcbDiscount.setSelected(ventana2.viajesArray[index].isDiscounted());
+                jtfCliente.setText(ventana2.viajesArray[index].getCliente());
+                if (index < 1) {
                     btnEliminar.setEnabled(false);
                 }
-            }            
+            }
         });
 
     }
@@ -132,6 +137,8 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
         jList1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jLabel8 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jtfCliente = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -214,6 +221,19 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
             }
         }});
 
+        jLabel3.setText("Nombre del cliente");
+
+        jtfCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfClienteActionPerformed(evt);
+            }
+        });
+        jtfCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfClienteKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -239,7 +259,9 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jtfCliente))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -259,11 +281,15 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addGap(3, 3, 3)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addGap(2, 2, 2)
                 .addComponent(jcbDiscount)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar)
                     .addComponent(btnAgregar)
@@ -282,24 +308,25 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
         // TODO add your handling code here:
 
-        int dias;
+        int folio;
         Destinos destino; //lista
-        Categoria tipoHabitacion; //lista
-        boolean isMonthlyPaid;
-
+        Categoria tipoViaje; //lista
+        boolean isDiscounted;
+        String cliente;
         try {
-            isMonthlyPaid = jcbDiscount.isSelected();
-            dias = Integer.parseInt(jtfFolio.getText());
-            if (jList1.getSelectedValue() == null || jComboBox1.getSelectedItem() == null) {
+            isDiscounted = jcbDiscount.isSelected();
+            folio = Integer.parseInt(jtfFolio.getText());
+            cliente = jtfCliente.getText();
+            if (jList1.getSelectedValue() == null || jComboBox1.getSelectedItem() == null || cliente == null || cliente.equals("")) {
                 JOptionPane.showMessageDialog(this, "No puedes dejar vacio los campos");
                 return;
             }
             destino = jList1.getSelectedValue();
-            tipoHabitacion = ((Categoria) jComboBox1.getSelectedItem());
-            alumnosStack[ventana2.count] = (new Viaje(dias, destino, tipoHabitacion, isMonthlyPaid));
+            tipoViaje = ((Categoria) jComboBox1.getSelectedItem());
+            viajesArray[ventana2.count] = (new Viaje(folio, destino, tipoViaje, isDiscounted, cliente));
             ventana2.count++;
             limpiar();
-            JOptionPane.showMessageDialog(this, "Alumno agregado correctamente");
+            JOptionPane.showMessageDialog(this, "Viaje agregado correctamente");
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Error en el formato numerico");
         }
@@ -339,12 +366,12 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
         if (user == null) {
             return;
         }
-        for (int i = 0; i < ventana2.alumnosStack.length; i++) {
-            if (ventana2.alumnosStack[i] != null && ("" + ventana2.alumnosStack[i].getFolio()).equals(user)) {
-                for (int j = i; j < ventana2.alumnosStack.length - 1; j++) {
-                    ventana2.alumnosStack[j] = ventana2.alumnosStack[j + 1];
+        for (int i = 0; i < ventana2.viajesArray.length; i++) {
+            if (ventana2.viajesArray[i] != null && ("" + ventana2.viajesArray[i].getFolio()).equals(user)) {
+                for (int j = i; j < ventana2.viajesArray.length - 1; j++) {
+                    ventana2.viajesArray[j] = ventana2.viajesArray[j + 1];
                 }
-                ventana2.alumnosStack[ventana2.alumnosStack.length - 1] = null;
+                ventana2.viajesArray[ventana2.viajesArray.length - 1] = null;
                 ventana2.count--;
                 return;
             }
@@ -357,6 +384,14 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
         // TODO add your handling code here:
         allowOnlyNumbers(evt);
     }//GEN-LAST:event_jtfFolioKeyTyped
+
+    private void jtfClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfClienteActionPerformed
+
+    private void jtfClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfClienteKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfClienteKeyTyped
 
     /**
      * @param args the command line arguments
@@ -375,18 +410,18 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmRegistroAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRegistroViaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmRegistroAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRegistroViaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmRegistroAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRegistroViaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmRegistroAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRegistroViaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new frmRegistroAlumno(new frmMenu()).setVisible(true);
+            new frmRegistroViaje(new frmMenu()).setVisible(true);
         });
     }
 
@@ -403,12 +438,14 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
     private javax.swing.JComboBox<diagnostic.Enums.Categoria> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JList<diagnostic.Enums.Destinos> jList1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JCheckBox jcbDiscount;
+    private javax.swing.JTextField jtfCliente;
     private javax.swing.JTextField jtfFolio;
     // End of variables declaration//GEN-END:variables
 
@@ -417,6 +454,7 @@ public class frmRegistroAlumno extends javax.swing.JFrame {
         jList1.clearSelection();
         jComboBox1.setSelectedIndex(-1);
         jcbDiscount.setSelected(false);
+        jtfCliente.setText("");
     }
 
     private void allowOnlyNumbers(KeyEvent evt) {
