@@ -127,6 +127,10 @@ public class frmMenu extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
+        if (count < 1) {
+            JOptionPane.showMessageDialog(this, "No hay ningun viaje registrado");
+            return;
+        }
         String user = JOptionPane.showInputDialog(this, "Ingresa el Folio del viaje a buscar");
         if (user == null) {
             return;
@@ -150,6 +154,10 @@ public class frmMenu extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
+        if (count < 1) {
+            JOptionPane.showMessageDialog(this, "No hay ningun viaje registrado");
+            return;
+        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
