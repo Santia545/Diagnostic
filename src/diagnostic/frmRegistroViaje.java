@@ -76,6 +76,7 @@ public class frmRegistroViaje extends javax.swing.JFrame {
         jList1.setSelectedIndex(ventana2.viajesArray[0].getDestino().ordinal());
         jComboBox1.setSelectedIndex(ventana2.viajesArray[0].getCategoria().ordinal());
         jcbDiscount.setSelected(ventana2.viajesArray[0].isDiscounted());
+        jtfCliente.setText(ventana2.viajesArray[0].getCliente());
         for (MouseListener listener : btnAgregar.getMouseListeners()) {
             btnAgregar.removeMouseListener(listener);
         }
@@ -85,8 +86,13 @@ public class frmRegistroViaje extends javax.swing.JFrame {
         btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (!btnAgregar.isEnabled()) {
+                    return;
+                }
                 btnEliminar.setEnabled(true);
-                index++;
+                if (index < ventana2.count) {
+                    index++;
+                }
                 jtfFolio.setText(ventana2.viajesArray[index].getFolio() + "");
                 jList1.setSelectedIndex(ventana2.viajesArray[index].getDestino().ordinal());
                 jComboBox1.setSelectedIndex(ventana2.viajesArray[index].getCategoria().ordinal());
@@ -100,8 +106,13 @@ public class frmRegistroViaje extends javax.swing.JFrame {
         btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (!btnEliminar.isEnabled()) {
+                    return;
+                }
                 btnAgregar.setEnabled(true);
-                index--;
+                if (index > 0) {
+                    index--;
+                }
                 jtfFolio.setText(ventana2.viajesArray[index].getFolio() + "");
                 jList1.setSelectedIndex(ventana2.viajesArray[index].getDestino().ordinal());
                 jComboBox1.setSelectedIndex(ventana2.viajesArray[index].getCategoria().ordinal());
