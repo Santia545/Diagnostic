@@ -319,7 +319,10 @@ public class frmRegistroViaje extends javax.swing.JFrame {
 
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
         // TODO add your handling code here:
-
+        if (ventana2.count >= ventana2.viajesArray.length) {
+            JOptionPane.showMessageDialog(this, "Limite de 100 viajes alcanzado, borra alguno para continuar");
+            return;
+        }
         int folio;
         Destinos destino; //lista
         Categoria tipoViaje; //lista
